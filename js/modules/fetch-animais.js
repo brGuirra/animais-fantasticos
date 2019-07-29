@@ -1,4 +1,4 @@
-import initAnimaNumeros from './anima-numeros.js';
+import AnimaNumeros from './anima-numeros.js';
 
 export default function initFetchAnimais() {
   // Essa função cria o elemento no HTML contendo os valores
@@ -48,7 +48,8 @@ export default function initFetchAnimais() {
       // animação não acontecia porque a promessa que gera
       // os elementos de cada animal ainda não tinha sido
       // finalizada.
-      initAnimaNumeros();
+      const animaNumeros = new AnimaNumeros('[data-numero]', '.numeros', 'ativo');
+      animaNumeros.init();
     } catch (erro) {
       console.log(erro);
     }
