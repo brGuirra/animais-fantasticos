@@ -1,22 +1,45 @@
-export default function initModal() {
-  const botaoAbrir = document.querySelector('[data-modal="abrir"]');
-  const botaoFechar = document.querySelector('[data-modal="fechar"]');
-  const containerModal = document.querySelector('[data-modal="container"]');
+export default class Modal {
+  constructor(botaoAbrir, botaoFechar, containerModal) {
+    this.botaoAbrir = document.querySelector(botaoAbrir);
+    this.botaoFechar = document.querySelector(botaoFechar);
+    this.containerModal = document.querySelector(containerModal);
 
-  function toggleModal(event) {
-    event.preventDefault();
-    containerModal.classList.toggle('ativo');
+    // Bind this ao callback para
+    // fazer referência ao objeto
+    // da classe.
+    this.eventToggleModal = this.eventToggleModal.bind(this);
+    this.fecharForaModal = this.fecharForaModal.bind(this);
   }
 
-  function fecharForaModal(event) {
-    if (event.target === this) {
-      toggleModal(event);
+  // Abre ou fecha o Modal.
+  toggleModal() {
+    this.containerModal.classList.toggle('ativo');
+  }
+
+  // Adiciona o evento de toggle ao Modal.
+  eventToggleModal(event) {
+    event.preventDefault();
+    this.toggleModal();
+  }
+
+  // Fecha o Modal ao clicar do lado de fora.
+  fecharForaModal(event) {
+    if (event.target === this.containerModal) {
+      this.toggleModal();
     }
   }
 
-  if (botaoAbrir && botaoFechar && containerModal) {
-    botaoAbrir.addEventListener('click', toggleModal);
-    botaoFechar.addEventListener('click', toggleModal);
-    containerModal.addEventListener('click', fecharForaModal);
+  // Adiciona os eventos aos elementos do Modal.
+  addModalEvents() {
+    this.botaoAbrir.addEventListener('click', this.eventToggleModal);
+    this.botaoFechar.addEventListener('click', this.eventToggleModal);
+    this.containerModal.addEventListener('click', this.fecharForaModal);
+  }
+
+  init() {
+    if (this.botaoAbrir && this.botaoFechar && this.containerModal) {
+      this.addModalEvents();
+    }
+    return this;
   }
 }
