@@ -31,7 +31,7 @@ export default class ScrollAnima {
     // baixo, por isso ela não animava direito. Especificamente
     // para esse caso é preciso setar um valor especial.
     this.distance[3].offsetTopElement = this.distance[3].offsetTopElement
-     + (this.windowMetade * 1.2);
+     + (this.windowMetade * 1.3);
   }
 
   // Essa função adiciona e remove a classe
