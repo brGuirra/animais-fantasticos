@@ -1,20 +1,48 @@
 import outsideClick from './outsideclick.js';
 
-export default function initMenuMobile() {
-  const menuButton = document.querySelector('[data-menu="button"]');
-  const menuList = document.querySelector('[data-menu="list"]');
-  const eventos = ['click', 'touchstart'];
+export default class MenuMobile {
+  constructor(menuButton, menuList, events) {
+    // Armazena o elemento do menu mobile.
+    this.menuButton = document.querySelector(menuButton);
 
-  function openMenu() {
-    menuButton.classList.add('active');
-    menuList.classList.add('active');
-    outsideClick(menuList, eventos, () => {
-      menuButton.classList.remove('active');
-      menuList.classList.remove('active');
+    // Armazena a lista que vai ser apresentada para
+    // esse elemento que foi armazenado.
+    this.menuList = document.querySelector(menuList);
+
+    // Bind do callback de addMenuMobileEvents();
+    this.openMenu = this.openMenu.bind(this);
+
+    // Classe que ativa o CCS.
+    this.activeClass = 'active';
+
+    // Armazena os eventos que vão adicionados,
+    // se o valor não for passado a propriedade
+    // vai ter um valor padrão.
+    if (events === undefined) this.events = ['click', 'touchstart'];
+    else this.events = events;
+  }
+
+  // Abre o menu mobile do elemento
+  // adiconando e removendo a classe "active".
+  openMenu() {
+    this.menuButton.classList.add(this.activeClass);
+    this.menuList.classList.add(this.activeClass);
+    outsideClick(this.menuList, this.events, () => {
+      this.menuButton.classList.remove(this.activeClass);
+      this.menuList.classList.remove(this.activeClass);
     });
   }
 
-  if (menuButton) {
-    eventos.forEach(evento => menuButton.addEventListener(evento, openMenu));
+  // Adiciona os eventos ao menu mobile.
+  addMenuMobileEvents() {
+    this.events.forEach(evento => this.menuButton.addEventListener(evento, this.openMenu));
+  }
+
+  // Inicia os métodos da classe.
+  init() {
+    if (this.menuButton && this.menuList) {
+      this.addMenuMobileEvents();
+    }
+    return this;
   }
 }
