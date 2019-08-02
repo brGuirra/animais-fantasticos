@@ -1,0 +1,104 @@
+/* Define que o elemento vai pegar
+todas as colunas da tela */
+.galeria {
+  grid-column: 1 / -1;
+}
+
+/* O slide-wrapper tem a propriedade
+overflow: hidden para que não gere uma
+barra de rolagem já que a lista toda tem 
+a largura maior que a tela  */
+.slide-wrapper {
+  overflow: hidden;
+
+  /* Define que o elemento vai pegar
+  todas as colunas da tela */
+  grid-column: 1 / -1;
+}
+
+/* O "contaier" (div com class slide)
+vai ter display: flex para que os elementos
+fiquem alinhados em um fileira */
+.slide {
+  display: flex;
+}
+
+/* Esse estilo serve para otimizar a
+transformação do elementos do slide.
+Essa propriedade notifica o navegador que 
+o atributo "transform" vai mudar quando o 
+mouse passar por cima do elemento */
+.slide:hover {
+  will-change: transform;
+}
+
+.slide li {
+  /* Cada elemento da lista vai ter um 
+  width de 80%, esse valor é descrito com
+  "vw" que significa Virtual Width */
+  width: 80vw;
+
+  /* Os itens tem a propriedade flex-shrink: 0
+  para não estourar o container  */
+  flex-shrink: 0;
+
+  /* Os itens não vão ter mais que 800px */
+  /* max-width: 800px; */
+
+  margin: 0 20px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .4);
+
+  /* Transforma os elementos que não estão 
+  ativos para que fiquem um pouco menores e 
+  opacos */
+  opacity: .8;
+  transform: scale(.8);
+
+  /* Suaviza o resing dos elementos 
+  quando entram e saem de evidência na tela */
+  transition: .4s;
+}
+
+/* Coloca o elemento ativo em evidência na tela */
+.slide li.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.custom-controls {
+  display: flex;
+  /* Se os elementos forem maiores que o
+  container, eles vão quebrar a linha ao
+  invés de estourar o container */
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  /* Define que o elemento vai pegar
+  todas as colunas da tela */
+  grid-column: 1 / -1;
+}
+
+.custom-controls li {
+  /* Diminui a opaciddade e o tamanho dos
+  itens que não estão selecionados */
+  opacity: .8;
+  transform: scale(.8);
+
+  /* Transforma os elementos em um círculo */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+
+  margin: 2px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, .5);
+  transition: .3s;
+}
+
+.custom-controls li.active {
+  opacity: 1;
+  transform: scale(1);
+}
