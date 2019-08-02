@@ -38,6 +38,8 @@ mouse passar por cima do elemento */
   "vw" que significa Virtual Width */
   width: 80vw;
 
+  max-width: 800px;
+
   /* Os itens tem a propriedade flex-shrink: 0
   para não estourar o container  */
   flex-shrink: 0;
