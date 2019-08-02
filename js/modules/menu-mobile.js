@@ -18,18 +18,23 @@ export default class MenuMobile {
     // Armazena os eventos que vão adicionados,
     // se o valor não for passado a propriedade
     // vai ter um valor padrão.
-    if (events === undefined) this.events = ['click', 'touchstart'];
+    if (events === undefined) this.events = ['touchstart', 'click'];
     else this.events = events;
   }
 
   // Abre o menu mobile do elemento
   // adiconando e removendo a classe "active".
-  openMenu() {
-    this.menuButton.classList.add(this.activeClass);
+  openMenu(event) {
+    // Previne que ocorra um bug no menu-mobile
+    // já que o elemento tem os eventos de click
+    // e touchstart.
+    event.preventDefault();
+
     this.menuList.classList.add(this.activeClass);
+    this.menuButton.classList.add(this.activeClass);
     outsideClick(this.menuList, this.events, () => {
-      this.menuButton.classList.remove(this.activeClass);
       this.menuList.classList.remove(this.activeClass);
+      this.menuButton.classList.remove(this.activeClass);
     });
   }
 
