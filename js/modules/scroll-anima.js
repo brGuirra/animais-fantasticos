@@ -4,7 +4,7 @@ export default class ScrollAnima {
   constructor(sections) {
     // Importa todas as Sections que o site tiver.
     this.sections = document.querySelectorAll(sections);
-    this.windowMetade = window.innerHeight * 0.7;
+    this.windowMetade = window.innerHeight * 0.8;
 
     this.checkDistance = debounce(this.checkDistance.bind(this), 50);
   }
@@ -15,23 +15,22 @@ export default class ScrollAnima {
   // o método map() foi preciso desestruturar a
   // propriedade "this.sections" da classe.
   getDistance() {
-    this.distance = [...this.sections].map((section) => {
-      const offsetTopElement = section.offsetTop;
+    this.distance = [...this.sections].map((section, index) => {
+      let offsetTopElement = section.offsetTop;
+      if (index > 2) {
+        offsetTopElement += this.windowMetade;
+      } else {
+        offsetTopElement -= this.windowMetade;
+      }
       return {
         element: section,
         // O valor dessa propriedade é subtraído de
         // "this.windowMetade" para que o elemento
         // não seja animado somente quando o scroll
         // estiver em seu topo.
-        offsetTopElement: Math.floor(offsetTopElement - this.windowMetade),
+        offsetTopElement,
       };
     });
-
-    // O valor quando chegava na última section do site era muito
-    // baixo, por isso ela não animava direito. Especificamente
-    // para esse caso é preciso setar um valor especial.
-    this.distance[3].offsetTopElement = this.distance[3].offsetTopElement
-     + (this.windowMetade * 1.3);
   }
 
   // Essa função adiciona e remove a classe
